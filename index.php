@@ -5,6 +5,8 @@ require_once __DIR__ . '/inc/bootstrap.php';
 require_once __DIR__ . '/inc/game/round.php';
 require_once __DIR__ . '/inc/game/session.php';
 require_once __DIR__ . '/services/DatasetLoaderService.php';
+require_once __DIR__ . '/inc/db/participants.php';
+require_once __DIR__ . '/inc/email/mailer.php';
 
 // ── POST actions ─────────────────────────────────────────────────────────────
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -13,6 +15,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($action === 'play_again' && csrf_verify()) {
         reset_game();
         header('Location: /');
+        exit;
+    }
+
+    if ($action === 'submit_email' && csrf_verify()) {
+        $email     = trim((string) ($_POST['email'] ?? ''));
+        $score     = max(0, (int) ($_POST['score'] ?? 0));
+        $total     = max(1, (int) ($_POST['total'] ?? 1));
+        $token     = (string) ($_SESSION['session_token'] ?? '');
+
+        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $pdo = db_sqlite();
+
+            // Record completed session
+            record_session_complete($pdo, $token, $score, $total);
+
+            $saved = save_participant($pdo, $email, $score, $total, $token);
+
+            if ($saved) {
+                $campaignForEmail = load_campaign();
+                $langForEmail     = (string) ($_SESSION['lang'] ?? 'es');
+                $link             = $campaignForEmail['campaign_link'] ?? '';
+                $pct              = $total > 0 ? (int) round(($score / $total) * 100) : 0;
+                send_confirmation_email($email, $campaignForEmail, $langForEmail, $score, $total, $pct, $link);
+            }
+
+            $_SESSION['email_submitted'] = true;
+        }
+
+        header('Location: /?screen=thanks');
         exit;
     }
 }
