@@ -46,6 +46,20 @@ if ($screen === 'game' && !is_game_started()) {
     }
     $token = bin2hex(random_bytes(16));
     init_game_session($roundResult['round'], $token);
+    $pdo = db_sqlite();
+    $clientIp = get_client_ip();
+    $geo = get_geo_from_ip($clientIp);
+    $ua  = (string) ($_SERVER['HTTP_USER_AGENT'] ?? '');
+    record_session_start(
+        $pdo,
+        $token,
+        $currentLang,
+        detect_device_type($ua),
+        detect_browser($ua),
+        anonymize_ip($clientIp),
+        $geo['country'],
+        $geo['city']
+    );
 }
 
 // ── View data ────────────────────────────────────────────────────────────────

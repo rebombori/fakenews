@@ -6,6 +6,9 @@ require_once __DIR__ . '/helpers.php';
 require_once __DIR__ . '/i18n.php';
 require_once __DIR__ . '/lang.php';
 require_once __DIR__ . '/campaign.php';
+require_once __DIR__ . '/db/db.php';
+require_once __DIR__ . '/db/tracking.php';
+require_once __DIR__ . '/geo/geoip.php';
 
 $cfg = app_config();
 date_default_timezone_set((string) $cfg['timezone']);
