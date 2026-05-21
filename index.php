@@ -318,9 +318,9 @@ document.getElementById('btn-fake').addEventListener('click', function() {
 
 <div class="result-card">
   <div class="score-big"><?= (int) $score['correct'] ?>/<?= (int) $score['total'] ?></div>
-  <div class="score-pct"><?= e(str_replace('{pct}', $score['pct'], tr($i18n, 'result_pct', '{pct}%'))) ?></div>
+  <div class="score-pct"><?= e(str_replace('{pct}', (string) $score['pct'], tr($i18n, 'result_pct', '{pct}%'))) ?></div>
   <p style="text-align:center;color:#65676b;font-size:.9rem;margin:0">
-    <?= e(str_replace(['{correct}', '{total}'], [(int) $score['correct'], (int) $score['total']], tr($i18n, 'result_score', 'Has acertado {correct} de {total}'))) ?>
+    <?= e(str_replace(['{correct}', '{total}'], [(string) $score['correct'], (string) $score['total']], tr($i18n, 'result_score', 'Has acertado {correct} de {total}'))) ?>
   </p>
 </div>
 
@@ -355,7 +355,7 @@ document.getElementById('btn-fake').addEventListener('click', function() {
   <?php if (!empty($_SESSION['email_submitted'])): ?>
     <p style="color:#1a7f37;font-weight:600"><?= e(tr($i18n, 'result_already_participated', 'Ya has enviado tu participación.')) ?></p>
   <?php else: ?>
-  <form class="email-form" method="POST" action="/">
+  <form class="email-form" method="POST" action="<?= e(base_url('/')) ?>">
     <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">
     <input type="hidden" name="action" value="submit_email">
     <input type="hidden" name="score" value="<?= $score['correct'] ?>">
@@ -370,7 +370,7 @@ document.getElementById('btn-fake').addEventListener('click', function() {
   <?php endif; ?>
 </div>
 
-<form method="POST" action="/">
+<form method="POST" action="<?= e(base_url('/')) ?>">
   <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">
   <input type="hidden" name="action" value="play_again">
   <button type="submit" class="play-again-btn"><?= e(tr($i18n, 'result_play_again', 'Jugar de nuevo')) ?></button>
@@ -389,7 +389,7 @@ document.getElementById('btn-fake').addEventListener('click', function() {
   <?php endif; ?>
 </div>
 
-<form method="POST" action="/">
+<form method="POST" action="<?= e(base_url('/')) ?>">
   <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">
   <input type="hidden" name="action" value="play_again">
   <button type="submit" class="play-again-btn"><?= e(tr($i18n, 'thanks_play_again', 'Jugar de nuevo')) ?></button>
