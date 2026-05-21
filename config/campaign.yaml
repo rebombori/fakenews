@@ -1,0 +1,29 @@
+total_cards: 10
+min_real: 3
+
+report:
+  es: "En Amnistía Internacional trabajamos para que todas las personas conozcan sus derechos y puedan defenderlos. La desinformación es una herramienta de control que vulnera el derecho a la información. Este juego forma parte de nuestra campaña por una información veraz y accesible."
+  val: "A Amnistia Internacional treballem perquè totes les persones coneguen els seus drets i puguen defensar-los. La desinformació és una eina de control que vulnera el dret a la informació. Aquest joc forma part de la nostra campanya per una informació veraç i accessible."
+  en: "At Amnesty International we work so that all people know their rights and can defend them. Disinformation is a tool of control that violates the right to information. This game is part of our campaign for truthful and accessible information."
+
+campaign_link: "https://amnistia.org/campana-desinformacion"
+
+campaign_link_label:
+  es: "Saber más sobre esta campaña"
+  val: "Saber-ne més sobre aquesta campanya"
+  en: "Learn more about this campaign"
+
+lottery_legal:
+  es: "Al participar, aceptas que tu email se utilice exclusivamente para el sorteo."
+  val: "En participar, acceptes que el teu email s'use exclusivament per al sorteig."
+  en: "By participating, you accept your email will be used exclusively for the draw."
+
+email_confirmation:
+  subject:
+    es: "Tu participación en el sorteo — {score} de {total} respuestas correctas"
+    val: "La teua participació en el sorteig — {score} de {total} respostes correctes"
+    en: "Your entry in the draw — {score} out of {total} correct answers"
+  body:
+    es: "¡Hola!\n\nHas completado el juego y has acertado {score} de {total} preguntas ({pct}%).\n\nTu participación en el sorteo ha sido registrada. Si resultas ganador/a te contactaremos en este email.\n\nMás información sobre la campaña:\n{link}\n\nGracias por participar.\n"
+    val: "Hola!\n\nHas completat el joc i has encertat {score} de {total} preguntes ({pct}%).\n\nLa teua participació en el sorteig ha estat registrada. Si eres guanyador/a et contactarem a aquest email.\n\nMés informació sobre la campanya:\n{link}\n\nGràcies per participar.\n"
+    en: "Hi!\n\nYou completed the game and got {score} out of {total} correct ({pct}%).\n\nYour entry in the draw has been registered. If you win we will contact you at this email.\n\nMore about the campaign:\n{link}\n\nThank you for participating.\n"
