@@ -1,0 +1,21 @@
+# Credenciales y configuración local
+.env
+
+# Base de datos SQLite (contiene emails reales de participantes)
+data/fakenews.db
+data/fakenews.db-shm
+data/fakenews.db-wal
+
+# Logs y caché del servidor
+*.log
+/tmp/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
