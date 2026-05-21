@@ -134,7 +134,7 @@ $lotteryLegal = campaign_text($campaign, 'lottery_legal', $currentLang);
 <title><?= e(tr($i18n, 'game_title', 'Real o Falsa?')) ?></title>
 <link rel="stylesheet" href="<?= e(base_url('/assets/style.css')) ?>">
 <style>
-  body { background: #e9ebee; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; }
+  body { background: #e9ebee; color: #1c1e21; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; }
   .fb-topbar { background: #1877f2; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; }
   .fb-topbar .logo { color: #fff; font-weight: 700; font-size: 1.3rem; letter-spacing: -0.5px; }
   .lang-switcher { display: flex; gap: 6px; }
