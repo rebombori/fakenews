@@ -182,7 +182,7 @@ $lotteryLegal = campaign_text($campaign, 'lottery_legal', $currentLang);
 
 <div class="news-card" id="news-card">
   <div class="card-header">
-    <div class="source-avatar"><?= $avatar ?></div>
+    <div class="source-avatar"><?= e($avatar) ?></div>
     <div class="source-info">
       <div class="source-name"><?= $source ?></div>
       <div class="source-rep" title="<?= e(tr($i18n, 'reputation_label', 'Reputación')) ?>">
@@ -271,10 +271,10 @@ document.getElementById('btn-fake').addEventListener('click', function() {
 <?php elseif ($screen === 'result' && $score !== null): ?>
 
 <div class="result-card">
-  <div class="score-big"><?= $score['correct'] ?>/<?= $score['total'] ?></div>
+  <div class="score-big"><?= (int) $score['correct'] ?>/<?= (int) $score['total'] ?></div>
   <div class="score-pct"><?= e(str_replace('{pct}', $score['pct'], tr($i18n, 'result_pct', '{pct}%'))) ?></div>
   <p style="text-align:center;color:#65676b;font-size:.9rem;margin:0">
-    <?= e(str_replace(['{correct}', '{total}'], [$score['correct'], $score['total']], tr($i18n, 'result_score', 'Has acertado {correct} de {total}'))) ?>
+    <?= e(str_replace(['{correct}', '{total}'], [(int) $score['correct'], (int) $score['total']], tr($i18n, 'result_score', 'Has acertado {correct} de {total}'))) ?>
   </p>
 </div>
 
