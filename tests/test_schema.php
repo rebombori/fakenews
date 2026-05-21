@@ -7,69 +7,41 @@ function assert_true(bool $cond, string $label): void
     echo ($cond ? "PASS" : "FAIL") . ": {$label}\n";
 }
 
-// Create a mock PDO for unit testing schema definition
-class MockPDO
-{
-    private array $executedStatements = [];
-
-    public function exec(string $statement): int
-    {
-        $this->executedStatements[] = $statement;
-        return 0;
-    }
-
-    public function getExecutedStatements(): array
-    {
-        return $this->executedStatements;
-    }
-
-    public function setAttribute(int $attribute, mixed $value): bool
-    {
-        return true;
-    }
-
-    public function query(string $query): MockStatement
-    {
-        return new MockStatement();
-    }
+if (!in_array('sqlite', PDO::getAvailableDrivers(), true)) {
+    echo "SKIP: pdo_sqlite not available in this environment (required in production)\n";
+    exit(0);
 }
 
-class MockStatement
-{
-    public function fetchAll(int $mode = PDO::FETCH_BOTH): array
-    {
-        return [];
-    }
-}
-
-$pdo = new MockPDO();
+// Use in-memory DB for tests
+$pdo = new PDO('sqlite::memory:');
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+$pdo->exec('PRAGMA journal_mode=WAL');
+$pdo->exec('PRAGMA foreign_keys=ON');
 
 require_once __DIR__ . '/../inc/db/schema.php';
-
-// Test that ensure_schema function exists and can be called
-assert_true(function_exists('ensure_schema'), 'ensure_schema function is defined');
-
-// Call the function with mock PDO
 ensure_schema($pdo);
-assert_true(true, 'ensure_schema() can be called with PDO');
 
-// Verify that CREATE TABLE statements were executed
-$statements = $pdo->getExecutedStatements();
-$hasGameSessions = false;
-$hasParticipants = false;
+// Verify tables
+$tables = $pdo->query("SELECT name FROM sqlite_master WHERE type='table'")->fetchAll();
+$tableNames = array_column($tables, 'name');
+assert_true(in_array('game_sessions', $tableNames), 'game_sessions table exists');
+assert_true(in_array('participants', $tableNames),   'participants table exists');
 
-foreach ($statements as $stmt) {
-    if (stripos($stmt, 'CREATE TABLE') !== false && stripos($stmt, 'game_sessions') !== false) {
-        $hasGameSessions = true;
-    }
-    if (stripos($stmt, 'CREATE TABLE') !== false && stripos($stmt, 'participants') !== false) {
-        $hasParticipants = true;
-    }
+// Verify game_sessions columns
+$cols = $pdo->query("PRAGMA table_info(game_sessions)")->fetchAll();
+$colNames = array_column($cols, 'name');
+foreach (['id','session_token','started_at','completed_at','completed','score','total_cards','lang','device_type','browser','ip_anon','country','city'] as $col) {
+    assert_true(in_array($col, $colNames), "game_sessions has column: {$col}");
 }
 
-assert_true($hasGameSessions, 'game_sessions table creation SQL was executed');
-assert_true($hasParticipants, 'participants table creation SQL was executed');
+// Verify participants columns
+$cols = $pdo->query("PRAGMA table_info(participants)")->fetchAll();
+$colNames = array_column($cols, 'name');
+foreach (['id','email','score','total_cards','submitted_at','session_token'] as $col) {
+    assert_true(in_array($col, $colNames), "participants has column: {$col}");
+}
 
-// Test idempotency - calling ensure_schema twice should not error
+// Idempotency: calling ensure_schema twice must not error
 ensure_schema($pdo);
 assert_true(true, 'ensure_schema is idempotent');

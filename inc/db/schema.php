@@ -1,11 +1,7 @@
 <?php
 declare(strict_types=1);
 
-/**
- * Ensure database schema exists. Idempotent.
- * Accepts PDO or any object with an exec() method.
- */
-function ensure_schema(mixed $pdo): void
+function ensure_schema(PDO $pdo): void
 {
     $pdo->exec('CREATE TABLE IF NOT EXISTS game_sessions (
         id            INTEGER PRIMARY KEY AUTOINCREMENT,
