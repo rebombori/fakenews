@@ -4,7 +4,7 @@ Aplicación web para campañas de sensibilización contra la desinformación.
 Los jugadores deben identificar qué noticias son reales y cuáles falsas.
 Al final pueden dejar su email para participar en un sorteo entre los mejores.
 
-**Demo:** Desplegado en [URL del servidor de la ONG]
+**Demo:** Desplegado en [quinrebombori.es/fakenews](http://quinrebombori.es/fakenews/)
 
 ---
 

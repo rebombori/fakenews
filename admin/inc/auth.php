@@ -8,7 +8,7 @@ function admin_session_start(): void
     session_name('fakenews_admin');
     session_set_cookie_params([
         'lifetime' => 60 * 60 * 4,
-        'path'     => '/',
+        'path'     => base_url('/'),
         'httponly' => true,
         'secure'   => isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off',
         'samesite' => 'Strict',
@@ -20,7 +20,7 @@ function admin_require_auth(): void
 {
     admin_session_start();
     if (empty($_SESSION['admin_logged_in'])) {
-        header('Location: /admin/login.php');
+        header('Location: ' . base_url('/admin/login.php'));
         exit;
     }
 }

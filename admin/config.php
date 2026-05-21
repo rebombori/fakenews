@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $yaml = build_campaign_yaml($data);
 
     if (file_put_contents($yamlPath, $yaml) !== false) {
-        header('Location: /admin/config.php?saved=1');
+        header('Location: ' . base_url('/admin/config.php?saved=1'));
         exit;
     } else {
         $error = 'Error al guardar el archivo. Verifica los permisos de escritura en config/.';
@@ -144,10 +144,10 @@ function ct(array $c, string $key, string $lang): string
 <div class="topbar">
   <strong>FakeNews — Admin</strong>
   <nav>
-    <a href="/admin/">Dashboard</a>
-    <a href="/admin/participants.php">Participantes</a>
-    <a href="/admin/config.php">Configuración</a>
-    <a href="/admin/logout.php">Salir</a>
+    <a href="<?= e(base_url('/admin/')) ?>">Dashboard</a>
+    <a href="<?= e(base_url('/admin/participants.php')) ?>">Participantes</a>
+    <a href="<?= e(base_url('/admin/config.php')) ?>">Configuración</a>
+    <a href="<?= e(base_url('/admin/logout.php')) ?>">Salir</a>
   </nav>
 </div>
 

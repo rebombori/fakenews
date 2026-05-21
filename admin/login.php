@@ -7,7 +7,7 @@ require_once __DIR__ . '/inc/auth.php';
 admin_session_start();
 
 if (!empty($_SESSION['admin_logged_in'])) {
-    header('Location: /admin/');
+    header('Location: ' . base_url('/admin/'));
     exit;
 }
 
@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['admin_logged_in']      = true;
         $_SESSION['admin_login_attempts'] = 0;
         $_SESSION['admin_locked_at']      = 0;
-        header('Location: /admin/');
+        header('Location: ' . base_url('/admin/'));
         exit;
     } else {
         admin_record_failed_attempt();

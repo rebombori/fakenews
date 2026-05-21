@@ -49,6 +49,7 @@ function app_config(): array
         'debug'        => env_bool($env, 'APP_DEBUG', false),
         'session_name' => envv($env, 'APP_SESSION_NAME', 'fakenews_session'),
         'timezone'     => envv($env, 'APP_TIMEZONE', 'Europe/Madrid'),
+        'base_path'    => rtrim((string) envv($env, 'APP_BASE_PATH', ''), '/'),
         'admin_password' => envv($env, 'ADMIN_PASSWORD', ''),
         'smtp' => [
             'host'      => envv($env, 'SMTP_HOST', ''),
@@ -61,4 +62,10 @@ function app_config(): array
     ];
 
     return $cfg;
+}
+
+function base_url(string $path = ''): string
+{
+    $base = app_config()['base_path'];
+    return $base . $path;
 }

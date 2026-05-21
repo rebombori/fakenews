@@ -7,5 +7,5 @@ require_once __DIR__ . '/inc/auth.php';
 admin_session_start();
 $_SESSION = [];
 session_destroy();
-header('Location: /admin/login.php');
+header('Location: ' . base_url('/admin/login.php'));
 exit;

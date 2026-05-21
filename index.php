@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($action === 'play_again' && csrf_verify()) {
         reset_game();
-        header('Location: /');
+        header('Location: ' . base_url('/'));
         exit;
     }
 
@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['email_submitted'] = true;
         }
 
-        header('Location: /?screen=thanks');
+        header('Location: ' . base_url('/?screen=thanks'));
         exit;
     }
 }
@@ -55,11 +55,11 @@ if (!in_array($screen, ['game', 'result', 'thanks'], true)) {
 }
 
 if ($screen === 'game' && is_game_complete()) {
-    header('Location: /?screen=result');
+    header('Location: ' . base_url('/?screen=result'));
     exit;
 }
 if ($screen === 'result' && !is_game_started()) {
-    header('Location: /');
+    header('Location: ' . base_url('/'));
     exit;
 }
 
@@ -132,7 +132,7 @@ $lotteryLegal = campaign_text($campaign, 'lottery_legal', $currentLang);
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title><?= e(tr($i18n, 'game_title', 'Real o Falsa?')) ?></title>
-<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="<?= e(base_url('/assets/style.css')) ?>">
 <style>
   body { background: #e9ebee; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; }
   .fb-topbar { background: #1877f2; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; }
@@ -257,6 +257,7 @@ $lotteryLegal = campaign_text($campaign, 'lottery_legal', $currentLang);
 
 <script>
 const CSRF = <?= json_encode($csrf) ?>;
+const BASE_URL = <?= json_encode(base_url()) ?>;
 const I18N = {
   loading: <?= json_encode(tr($i18n, 'loading', 'Cargando...')) ?>,
   error:   <?= json_encode(tr($i18n, 'error_generic', 'Error. Inténtalo de nuevo.')) ?>
@@ -267,7 +268,7 @@ async function sendAnswer(cardId, answer) {
   document.getElementById('btn-fake').disabled = true;
 
   try {
-    const resp = await fetch('/api/answer.php', {
+    const resp = await fetch(BASE_URL + '/api/answer.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -292,7 +293,7 @@ async function sendAnswer(cardId, answer) {
     setTimeout(() => {
       overlay.classList.remove('show');
       if (data.done) {
-        window.location.href = '/?screen=result';
+        window.location.href = BASE_URL + '/?screen=result';
       } else {
         window.location.reload();
       }

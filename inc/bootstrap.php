@@ -29,7 +29,7 @@ session_name((string) $cfg['session_name']);
 if (session_status() !== PHP_SESSION_ACTIVE) {
     session_set_cookie_params([
         'lifetime' => 60 * 60 * 24 * 2,
-        'path'     => '/',
+        'path'     => base_url('/'),
         'httponly' => true,
         'secure'   => isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off',
         'samesite' => 'Lax',

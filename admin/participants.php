@@ -110,10 +110,10 @@ $pages = (int) ceil($total / $perPage);
 <div class="topbar">
   <strong>FakeNews — Admin</strong>
   <nav>
-    <a href="/admin/">Dashboard</a>
-    <a href="/admin/participants.php">Participantes</a>
-    <a href="/admin/config.php">Configuración</a>
-    <a href="/admin/logout.php">Salir</a>
+    <a href="<?= e(base_url('/admin/')) ?>">Dashboard</a>
+    <a href="<?= e(base_url('/admin/participants.php')) ?>">Participantes</a>
+    <a href="<?= e(base_url('/admin/config.php')) ?>">Configuración</a>
+    <a href="<?= e(base_url('/admin/logout.php')) ?>">Salir</a>
   </nav>
 </div>
 
