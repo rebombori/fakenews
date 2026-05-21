@@ -1,0 +1,26 @@
+Options -Indexes
+
+# Seguridad: bloquea acceso a archivos sensibles
+<FilesMatch "(^\.env(\..*)?$|^\.git|\.db$|\.yaml$|\.sh$|\.md$)">
+    Require all denied
+</FilesMatch>
+
+# Bloquea acceso directo a JSON del dataset
+<FilesMatch "\.json$">
+    Require all denied
+</FilesMatch>
+
+# Cabeceras de seguridad
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Reescritura para routing limpio (opcional)
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^api/(.*)$ api/$1 [L]
+</IfModule>
