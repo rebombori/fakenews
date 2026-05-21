@@ -36,12 +36,12 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
 
 csrf_token();
 
-// Cambio de idioma por GET ?lang=
+// Language switch via GET ?lang=
 if (isset($_GET['lang'])) {
     $newLang = normalize_lang((string) $_GET['lang']);
     set_lang_cookie($newLang);
     $_SESSION['lang'] = $newLang;
-    $url = strtok($_SERVER['REQUEST_URI'], '?');
+    $url = preg_replace('/[\r\n]/', '', (string) strtok($_SERVER['REQUEST_URI'], '?'));
     $params = $_GET;
     unset($params['lang']);
     $qs = $params ? '?' . http_build_query($params) : '';
