@@ -334,20 +334,6 @@ document.getElementById('btn-fake').addEventListener('click', function() {
   </p>
 </div>
 
-<?php if ($realCards): ?>
-<div class="result-card">
-  <p class="section-title"><?= e(tr($i18n, 'result_real_headlines', 'Las noticias reales de esta partida')) ?></p>
-  <ul class="real-list">
-    <?php foreach ($realCards as $card): ?>
-    <li>
-      <div class="headline"><?= e(news_title($card, $langSuffix)) ?></div>
-      <div class="src"><?= e((string) ($card['source'] ?? '')) ?></div>
-    </li>
-    <?php endforeach; ?>
-  </ul>
-</div>
-<?php endif; ?>
-
 <?php if ($reportText): ?>
 <div class="result-card">
   <p class="section-title"><?= e(tr($i18n, 'result_report_title', 'Sobre esta campaña')) ?></p>
@@ -383,8 +369,22 @@ document.getElementById('btn-fake').addEventListener('click', function() {
 <form method="POST" action="<?= e(base_url('/')) ?>">
   <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">
   <input type="hidden" name="action" value="play_again">
-  <button type="submit" class="play-again-btn"><?= e(tr($i18n, 'result_play_again', 'Jugar de nuevo')) ?></button>
+  <button type="submit" class="campaign-btn" style="display:block;width:100%;text-align:center;border:none;cursor:pointer;box-sizing:border-box;"><?= e(tr($i18n, 'result_play_again', 'Jugar de nuevo')) ?></button>
 </form>
+
+<?php if ($realCards): ?>
+<div class="result-card" style="margin-top:14px">
+  <p class="section-title"><?= e(tr($i18n, 'result_real_headlines', 'Las noticias reales de esta partida')) ?></p>
+  <ul class="real-list">
+    <?php foreach ($realCards as $card): ?>
+    <li>
+      <div class="headline"><?= e(news_title($card, $langSuffix)) ?></div>
+      <div class="src"><?= e((string) ($card['source'] ?? '')) ?></div>
+    </li>
+    <?php endforeach; ?>
+  </ul>
+</div>
+<?php endif; ?>
 
 <div class="ai-footer-logo">
   <img src="<?= e(base_url($currentLang === 'en' ? '/assets/logo_en.svg' : '/assets/logo_es.svg')) ?>"
