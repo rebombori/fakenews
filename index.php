@@ -134,21 +134,21 @@ $lotteryLegal = campaign_text($campaign, 'lottery_legal', $currentLang);
 <title><?= e(tr($i18n, 'game_title', 'Real o Falsa?')) ?></title>
 <link rel="stylesheet" href="<?= e(base_url('/assets/style.css')) ?>">
 <style>
-  body { background: #e9ebee; color: #1c1e21; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; }
-  .fb-topbar { background: #1877f2; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; }
-  .fb-topbar .logo { color: #fff; font-weight: 700; font-size: 1.3rem; letter-spacing: -0.5px; }
+  body { background: #f0f0f0; color: #1c1e21; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; }
+  .fb-topbar { background: #000; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; }
+  .fb-topbar .logo { color: #FFFF00; font-weight: 900; font-size: 1.1rem; letter-spacing: 0.04em; text-transform: uppercase; }
   .lang-switcher { display: flex; gap: 6px; }
-  .lang-switcher a { color: rgba(255,255,255,0.8); font-size: 0.8rem; font-weight: 600; text-decoration: none; padding: 3px 7px; border-radius: 4px; }
-  .lang-switcher a.active, .lang-switcher a:hover { background: rgba(255,255,255,0.2); color: #fff; }
+  .lang-switcher a { color: rgba(255,255,255,0.7); font-size: 0.8rem; font-weight: 600; text-decoration: none; padding: 3px 8px; border-radius: 4px; border: 1px solid transparent; }
+  .lang-switcher a.active, .lang-switcher a:hover { background: #FFFF00; color: #000; border-color: #FFFF00; }
   .game-wrap { max-width: 520px; margin: 24px auto; padding: 0 12px; }
   .progress-bar-wrap { background: #fff; border-radius: 8px; padding: 10px 16px; margin-bottom: 14px; box-shadow: 0 1px 3px rgba(0,0,0,.1); }
   .progress-label { font-size: 0.82rem; color: #65676b; margin-bottom: 6px; }
   .progress-bar { background: #e4e6eb; border-radius: 99px; height: 6px; }
-  .progress-fill { background: #1877f2; height: 6px; border-radius: 99px; transition: width .3s; }
+  .progress-fill { background: #000; height: 6px; border-radius: 99px; transition: width .3s; }
   .news-card { background: #fff; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,.15); overflow: hidden; margin-bottom: 14px; }
-  .card-header { background: #f0f2f5; padding: 10px 16px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #e4e6eb; }
-  .card-header .source-avatar { width: 36px; height: 36px; border-radius: 50%; background: #1877f2; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 1rem; flex-shrink: 0; }
-  .card-header .source-info .source-name { font-weight: 600; font-size: 0.9rem; }
+  .card-header { background: #f5f5f5; padding: 10px 16px; display: flex; align-items: center; gap: 10px; border-bottom: 2px solid #FFFF00; }
+  .card-header .source-avatar { width: 36px; height: 36px; border-radius: 50%; background: #000; display: flex; align-items: center; justify-content: center; color: #FFFF00; font-weight: 700; font-size: 1rem; flex-shrink: 0; }
+  .card-header .source-info .source-name { font-weight: 600; font-size: 0.9rem; color: #1c1e21; }
   .card-header .source-info .source-rep { font-size: 0.75rem; color: #f5a623; }
   .card-body { padding: 16px; }
   .card-title { font-size: 1.05rem; font-weight: 700; color: #050505; margin: 0 0 8px; line-height: 1.35; }
@@ -157,28 +157,30 @@ $lotteryLegal = campaign_text($campaign, 'lottery_legal', $currentLang);
   .diff-easy   { background: #e7f3e8; color: #1a7f37; }
   .diff-medium { background: #fff3cd; color: #856404; }
   .diff-hard   { background: #fce8e8; color: #c0392b; }
-  .answer-btns { display: flex; gap: 10px; padding: 0 16px 16px; }
+  .answer-btns { display: flex; gap: 10px; padding: 0 16px 12px; }
   .btn-real { flex: 1; background: #e7f3e8; color: #1a7f37; border: 2px solid #1a7f37; border-radius: 8px; padding: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: background .15s; }
   .btn-real:hover { background: #1a7f37; color: #fff; }
   .btn-fake { flex: 1; background: #fce8e8; color: #c0392b; border: 2px solid #c0392b; border-radius: 8px; padding: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: background .15s; }
   .btn-fake:hover { background: #c0392b; color: #fff; }
   .btn-real:disabled, .btn-fake:disabled { opacity: .5; cursor: not-allowed; }
+  .ai-logo-wrap { padding: 8px 16px 16px; text-align: center; }
+  .ai-logo { width: 100%; max-width: 220px; height: auto; display: inline-block; }
   .result-card { background: #fff; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,.15); padding: 20px; margin-bottom: 14px; }
-  .score-big { font-size: 3rem; font-weight: 800; color: #1877f2; text-align: center; line-height: 1; }
+  .score-big { font-size: 3rem; font-weight: 800; color: #000; text-align: center; line-height: 1; }
   .score-label { text-align: center; color: #65676b; margin: 4px 0 16px; font-size: 0.9rem; }
   .score-pct { text-align: center; font-size: 1.3rem; font-weight: 700; color: #050505; margin-bottom: 16px; }
   .section-title { font-weight: 700; font-size: 1rem; color: #050505; margin: 0 0 10px; }
   .real-list { list-style: none; padding: 0; margin: 0; }
   .real-list li { padding: 8px 0; border-bottom: 1px solid #e4e6eb; font-size: 0.9rem; }
   .real-list li:last-child { border-bottom: none; }
-  .real-list .headline { font-weight: 600; }
+  .real-list .headline { font-weight: 600; color: #1c1e21; }
   .real-list .src { color: #65676b; font-size: 0.8rem; }
   .report-text { font-size: 0.9rem; color: #3c4043; line-height: 1.6; white-space: pre-line; }
-  .campaign-btn { display: block; text-align: center; background: #1877f2; color: #fff; padding: 12px; border-radius: 8px; font-weight: 700; text-decoration: none; margin-top: 12px; }
-  .campaign-btn:hover { background: #166fe5; }
+  .campaign-btn { display: block; text-align: center; background: #000; color: #FFFF00; padding: 12px; border-radius: 8px; font-weight: 700; text-decoration: none; margin-top: 12px; letter-spacing: 0.02em; }
+  .campaign-btn:hover { background: #222; }
   .email-form input[type=email] { width: 100%; box-sizing: border-box; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 0.95rem; margin-bottom: 8px; }
-  .email-form button { width: 100%; background: #1877f2; color: #fff; border: none; padding: 11px; border-radius: 6px; font-size: 1rem; font-weight: 700; cursor: pointer; }
-  .email-form button:hover { background: #166fe5; }
+  .email-form button { width: 100%; background: #000; color: #FFFF00; border: none; padding: 11px; border-radius: 6px; font-size: 1rem; font-weight: 700; cursor: pointer; letter-spacing: 0.02em; }
+  .email-form button:hover { background: #222; }
   .legal-text { font-size: 0.75rem; color: #65676b; margin-top: 6px; }
   .play-again-btn { width: 100%; background: #e4e6eb; color: #050505; border: none; padding: 11px; border-radius: 6px; font-size: 0.95rem; font-weight: 600; cursor: pointer; margin-top: 8px; }
   .play-again-btn:hover { background: #d8dadf; }
@@ -188,12 +190,14 @@ $lotteryLegal = campaign_text($campaign, 'lottery_legal', $currentLang);
   @keyframes popIn { from { transform: scale(0.3); opacity: 0; } to { transform: scale(1); opacity: 1; } }
   .thanks-card { background: #fff; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,.15); padding: 32px 20px; text-align: center; margin-bottom: 14px; }
   .thanks-icon { font-size: 3rem; margin-bottom: 12px; }
+  .ai-footer-logo { padding: 4px 0 8px; text-align: center; }
+  .ai-footer-logo img { width: 100%; max-width: 200px; height: auto; opacity: 0.85; }
 </style>
 </head>
 <body>
 
 <div class="fb-topbar">
-  <span class="logo">f</span>
+  <span class="logo"><?= $currentLang === 'en' ? 'Amnesty International' : 'Amnistía Internacional' ?></span>
   <div class="lang-switcher">
     <a href="?lang=es<?= $screen !== 'game' ? '&screen=' . $screen : '' ?>" class="<?= $currentLang === 'es' ? 'active' : '' ?>"><?= tr($i18n, 'lang_es', 'ES') ?></a>
     <a href="?lang=val<?= $screen !== 'game' ? '&screen=' . $screen : '' ?>" class="<?= $currentLang === 'val' ? 'active' : '' ?>"><?= tr($i18n, 'lang_val', 'VAL') ?></a>
@@ -249,6 +253,12 @@ $lotteryLegal = campaign_text($campaign, 'lottery_legal', $currentLang);
   <button class="btn-fake" id="btn-fake" data-answer="fake" data-card="<?= $cardId ?>">
     <?= e(tr($i18n, 'btn_fake', '✗ Falsa')) ?>
   </button>
+</div>
+
+<div class="ai-logo-wrap">
+  <img src="<?= e(base_url($currentLang === 'en' ? '/assets/logo_en.svg' : '/assets/logo_es.svg')) ?>"
+       alt="<?= $currentLang === 'en' ? 'Amnesty International' : 'Amnistía Internacional' ?>"
+       class="ai-logo">
 </div>
 
 <div class="feedback-overlay" id="feedback-overlay">
@@ -376,6 +386,11 @@ document.getElementById('btn-fake').addEventListener('click', function() {
   <button type="submit" class="play-again-btn"><?= e(tr($i18n, 'result_play_again', 'Jugar de nuevo')) ?></button>
 </form>
 
+<div class="ai-footer-logo">
+  <img src="<?= e(base_url($currentLang === 'en' ? '/assets/logo_en.svg' : '/assets/logo_es.svg')) ?>"
+       alt="<?= $currentLang === 'en' ? 'Amnesty International' : 'Amnistía Internacional' ?>">
+</div>
+
 <?php elseif ($screen === 'thanks'): ?>
 
 <div class="thanks-card">
@@ -394,6 +409,11 @@ document.getElementById('btn-fake').addEventListener('click', function() {
   <input type="hidden" name="action" value="play_again">
   <button type="submit" class="play-again-btn"><?= e(tr($i18n, 'thanks_play_again', 'Jugar de nuevo')) ?></button>
 </form>
+
+<div class="ai-footer-logo">
+  <img src="<?= e(base_url($currentLang === 'en' ? '/assets/logo_en.svg' : '/assets/logo_es.svg')) ?>"
+       alt="<?= $currentLang === 'en' ? 'Amnesty International' : 'Amnistía Internacional' ?>">
+</div>
 
 <?php endif; ?>
 </div>
